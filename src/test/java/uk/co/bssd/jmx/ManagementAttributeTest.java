@@ -14,10 +14,11 @@ public class ManagementAttributeTest {
 	private static final String ATTRIBUTE_NAME_UNKNOWN_VALUE = "UnknownValue";
 	private static final String ATTRIBUTE_NAME_INT_VALUE = "IntValue";
 
+	private SimpleReportingService underlyingBean;
+
 	private ManagementBeanServer server;
 	private ManagementBean managementBean;
-
-	private SimpleReportingService underlyingBean;
+	private ManagementAttribute<Integer> managementAttribute;
 
 	@Before
 	public void before() {
@@ -27,6 +28,7 @@ public class ManagementAttributeTest {
 		this.server.registerManagementBean(MBEAN_NAME, this.underlyingBean);
 
 		this.managementBean = this.server.findManagementBean(MBEAN_NAME);
+		this.managementAttribute = this.managementBean.findAttribute(ATTRIBUTE_NAME_INT_VALUE, Integer.class);
 	}
 	
 	@After
@@ -49,4 +51,18 @@ public class ManagementAttributeTest {
 		this.managementBean.findAttribute(ATTRIBUTE_NAME_UNKNOWN_VALUE,
 				Integer.class);
 	}
+	
+	@Test
+	public void testGetValueFromAttributeReturnsDefaultValueIfNoneSet() {
+		assertThat(this.managementAttribute.value(), is(0));
+	}
+	
+	@Test
+	public void testGetValueFromAttributeReturnsCorrectAnswer() {
+		int value = 6463;
+		this.underlyingBean.setIntValue(value);
+		assertThat(this.managementAttribute.value(), is(value));
+	}
+	
+	
 }
