@@ -2,40 +2,33 @@ package uk.co.bssd.jmx;
 
 import static uk.co.bssd.jmx.ObjectNameFactory.objectName;
 
-import java.lang.management.ManagementFactory;
+import java.io.IOException;
 
-import javax.management.MBeanServer;
+import javax.management.MBeanServerConnection;
 import javax.management.ObjectName;
 
 public class ManagementBeanServer {
 
-	private final MBeanServer beanServer;
-	
-	public ManagementBeanServer() {
-		this.beanServer = ManagementFactory.getPlatformMBeanServer();
-	}
-	
-	public ManagementBean findManagementBean(String name) {
-		ObjectName objectName = objectName(name);
-		if (!this.beanServer.isRegistered(objectName)) {
-			throw new JmxException("No bean registered with name [" + name + "]");
-		}
-		return new ManagementBean(this.beanServer, objectName);
-	}
-	
-	public void registerManagementBean(String name, Object bean) {
-		try {
-			this.beanServer.registerMBean(bean, objectName(name));
-		} catch (Exception e) {
-			throw new JmxException("Unable to register management bean", e);
-		}
+	private final MBeanServerConnection connection;
+
+	public ManagementBeanServer(MBeanServerConnection connection) {
+		this.connection = connection;
 	}
 
-	public void unregisterManagementBean(String mbeanName) {
+	public ManagementBean findManagementBean(String name) {
+		ObjectName objectName = objectName(name);
+		if (!isRegistered(objectName)) {
+			throw new JmxException("No bean registered with name [" + name
+					+ "]");
+		}
+		return new ManagementBean(this.connection, objectName);
+	}
+
+	private boolean isRegistered(ObjectName objectName) {
 		try {
-			this.beanServer.unregisterMBean(objectName(mbeanName));
-		} catch (Exception e) {
-			// do nothing
+			return this.connection.isRegistered(objectName);
+		} catch (IOException e) {
+			throw new JmxException("Unable to check if bean is registered", e);
 		}
 	}
 }

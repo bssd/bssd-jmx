@@ -4,15 +4,15 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ManagementBeanServerTest {
+public class LocalManagementBeanServerTest {
 
 	private static final String MBEAN_NAME = "uk.co.bssd:type=simpleMBean";
 
-	private ManagementBeanServer server;
+	private LocalManagementBeanServer server;
 
 	@Before
 	public void before() {
-		this.server = new ManagementBeanServer();
+		this.server = new LocalManagementBeanServer();
 	}
 
 	@After

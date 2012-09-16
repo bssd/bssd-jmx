@@ -2,16 +2,16 @@ package uk.co.bssd.jmx;
 
 import javax.management.MBeanAttributeInfo;
 import javax.management.MBeanInfo;
-import javax.management.MBeanServer;
+import javax.management.MBeanServerConnection;
 import javax.management.ObjectName;
 
 public class ManagementBean {
 
-	private final MBeanServer beanServer;
+	private final MBeanServerConnection beanServerConnection;
 	private final ObjectName objectName;
 
-	public ManagementBean(MBeanServer beanServer, ObjectName objectName) {
-		this.beanServer = beanServer;
+	public ManagementBean(MBeanServerConnection connection, ObjectName objectName) {
+		this.beanServerConnection = connection;
 		this.objectName = objectName;
 	}
 
@@ -20,7 +20,7 @@ public class ManagementBean {
 		if (!hasAttribute(name)) {
 			throw new JmxException("Attribute [" + name + "] does not exist for object [" + this.objectName + "]");
 		}
-		return new ManagementAttribute<T>(this.beanServer, this.objectName,
+		return new ManagementAttribute<T>(this.beanServerConnection, this.objectName,
 				name);
 	}
 	
@@ -39,7 +39,7 @@ public class ManagementBean {
 
 	private MBeanInfo mbeanInfo() {
 		try {
-			return this.beanServer.getMBeanInfo(this.objectName);
+			return this.beanServerConnection.getMBeanInfo(this.objectName);
 		} catch (Exception e) {
 			throw new JmxException("Unable to get MBeanInfo for ObjectName: " + this.objectName, e);
 		}

@@ -16,7 +16,7 @@ public class ManagementAttributeTest {
 
 	private SimpleReportingService underlyingBean;
 
-	private ManagementBeanServer server;
+	private LocalManagementBeanServer server;
 	private ManagementBean managementBean;
 	private ManagementAttribute<Integer> managementAttribute;
 
@@ -24,7 +24,7 @@ public class ManagementAttributeTest {
 	public void before() {
 		this.underlyingBean = new SimpleReportingService();
 
-		this.server = new ManagementBeanServer();
+		this.server = new LocalManagementBeanServer();
 		this.server.registerManagementBean(MBEAN_NAME, this.underlyingBean);
 
 		this.managementBean = this.server.findManagementBean(MBEAN_NAME);
