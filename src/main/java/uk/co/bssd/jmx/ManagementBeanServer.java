@@ -23,6 +23,10 @@ public class ManagementBeanServer {
 		}
 		return new ManagementBean(this.connection, objectName);
 	}
+	
+	public ProcessManagementBean processManagementBean() {
+		return new ProcessManagementBean(this.connection);
+	}
 
 	private boolean isRegistered(ObjectName objectName) {
 		try {
