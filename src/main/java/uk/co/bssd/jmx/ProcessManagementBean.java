@@ -35,7 +35,7 @@ public class ProcessManagementBean {
 		lastSystemTime = systemTime;
 		lastProcessCpuTime = processCpuTime;
 
-		return cpuUsage / this.availableProcessors;
+		return Math.min(100.0, cpuUsage / this.availableProcessors);
 	}
 
 	private OperatingSystemMXBean operatingSystemBean(
