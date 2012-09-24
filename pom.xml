@@ -15,6 +15,11 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
+	<scm>
+		<connection>scm:git:https://andystewart79@github.com/bssd/bssd-jmx.git</connection>
+		<developerConnection>scm:git:https://andystewart79@github.com/bssd/bssd-jmx.git</developerConnection>
+	</scm>
+
 	<build>
 		<plugins>
 			<plugin>
