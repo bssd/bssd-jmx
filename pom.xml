@@ -14,8 +14,8 @@
 	</properties>
 
 	<scm>
-		<connection>scm:git:https://andystewart79@github.com/bssd/bssd-jmx.git</connection>
-		<developerConnection>scm:git:https://andystewart79@github.com/bssd/bssd-jmx.git</developerConnection>
+		<connection>scm:git:https://github.com/bssd/bssd-jmx.git</connection>
+		<developerConnection>scm:git:https://github.com/bssd/bssd-jmx.git</developerConnection>
 	</scm>
 
 	<build>
