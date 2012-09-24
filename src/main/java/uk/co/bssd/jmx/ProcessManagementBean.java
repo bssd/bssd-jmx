@@ -29,7 +29,7 @@ public class ProcessManagementBean {
 		long systemTime = System.nanoTime();
 		long processCpuTime = this.operatingSystemBean.getProcessCpuTime();
 
-		double cpuUsage = (processCpuTime - this.lastProcessCpuTime)
+		double cpuUsage = (100 * (processCpuTime - this.lastProcessCpuTime))
 				/ (systemTime - this.lastSystemTime);
 
 		lastSystemTime = systemTime;
