@@ -109,11 +109,11 @@
 		</dependency>
 	</dependencies>
 
-	<repositories>
+	<distributionManagement>
 		<repository>
 			<id>org.sonatype.oss.repository.maven</id>
 			<name>OSS Sonatype Maven Repository</name>
 			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 		</repository>
-	</repositories>
+	</distributionManagement>
 </project>
